@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Simple Contact</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="name">Tarek Mahmud</string>
+    <string name="email">mdtarekmahmud449@gmail.com</string>
+</resources>
