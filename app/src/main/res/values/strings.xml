@@ -3,4 +3,6 @@
     <string name="add_contact">Add Contact</string>
     <string name="name">Tarek Mahmud</string>
     <string name="email">mdtarekmahmud449@gmail.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

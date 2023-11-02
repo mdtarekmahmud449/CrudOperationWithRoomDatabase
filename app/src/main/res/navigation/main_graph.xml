@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/contactRecyclerFragment">
+
+    <fragment
+        android:id="@+id/contactRecyclerFragment"
+        android:name="com.example.simplecontact.ContactRecyclerFragment"
+        android:label="fragment_contact_recycler"
+        tools:layout="@layout/fragment_contact_recycler" >
+        <action
+            android:id="@+id/action_contactRecyclerFragment_to_addContactFragment"
+            app:destination="@id/addContactFragment" />
+        <action
+            android:id="@+id/action_contactRecyclerFragment_to_addContactFragment2"
+            app:destination="@id/addContactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addContactFragment"
+        android:name="com.example.simplecontact.AddContactFragment"
+        android:label="fragment_add_contact"
+        tools:layout="@layout/fragment_add_contact" />
+</navigation>
