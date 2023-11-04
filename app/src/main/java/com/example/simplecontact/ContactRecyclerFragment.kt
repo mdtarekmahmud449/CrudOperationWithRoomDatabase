@@ -1,33 +1,27 @@
 package com.example.simplecontact
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.example.simplecontact.adapter.ContactAdapter
 import com.example.simplecontact.dao.ContactDao
-import com.example.simplecontact.database.AppDatabase
+import com.example.simplecontact.database.Db
 import com.example.simplecontact.database_model.UserContact
 import com.example.simplecontact.databinding.FragmentContactRecyclerBinding
 
 class ContactRecyclerFragment : Fragment(), ContactAdapter.Listener {
     private lateinit var binding: FragmentContactRecyclerBinding
     private lateinit var contactAdapter: ContactAdapter
-    private lateinit var db: AppDatabase
     private lateinit var contactDao: ContactDao
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentContactRecyclerBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,15 +29,11 @@ class ContactRecyclerFragment : Fragment(), ContactAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        db = Room.databaseBuilder(
-            requireContext(),
-            AppDatabase::class.java,
-            "contact-database"
-        ).allowMainThreadQueries().build()
-        contactDao = db.contactDao()
+
+        contactDao = Db.instance(requireContext()).contactDao()
         setRecyclerView()
 
-        binding.floatingActionBtn.setOnClickListener{
+        binding.floatingActionBtn.setOnClickListener {
             findNavController().navigate(R.id.addContactFragment)
         }
     }
@@ -64,15 +54,20 @@ class ContactRecyclerFragment : Fragment(), ContactAdapter.Listener {
             ) { _, _ ->
 
 
-                db.contactDao().deleteUserContact(userContact)
-                Log.d("TAG", "onContactDelete: ${userContact.toString()}  is deleted")
+                Db.instance(requireContext()).contactDao().deleteUserContact(userContact)
                 setRecyclerView()
             }
             .setNegativeButton(
-                "Dismis"
+                "Dismiss"
             ) { _, _ -> }
 
         val alerts = alertDialog.create()
         alerts.show()
+    }
+
+    override fun onUpdateContact(userContact: UserContact) {
+        val bundle = Bundle()
+        bundle.putParcelable("contact", userContact)
+        findNavController().navigate(R.id.contactUpdateFragment, bundle)
     }
 }

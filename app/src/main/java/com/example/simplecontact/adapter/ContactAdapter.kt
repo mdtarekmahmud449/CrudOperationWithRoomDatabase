@@ -10,6 +10,7 @@ import com.example.simplecontact.databinding.SampleViewBinding
 class ContactAdapter(val userContactList: List<UserContact>, val listener: ContactAdapter.Listener) : RecyclerView.Adapter<ContactAdapter.MyViewHolder>() {
     interface Listener{
         fun onCreateDelete(userContact: UserContact)
+        fun onUpdateContact(userContact: UserContact)
     }
     class MyViewHolder(val binding: SampleViewBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -29,10 +30,14 @@ class ContactAdapter(val userContactList: List<UserContact>, val listener: Conta
                 emailTv.text = it.email
                 phoneTv.text = it.phone
             }
-            holder.binding.root.setOnLongClickListener { clicked ->
+            holder.binding.root.setOnLongClickListener { longClicked ->
                 Log.d("TAG", "Long clicked: ${it.id}")
                 listener.onCreateDelete(it)
                 true
+            }
+
+            holder.binding.root.setOnClickListener {onClick ->
+                listener.onUpdateContact(it)
             }
         }
     }

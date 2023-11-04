@@ -1,17 +1,21 @@
 package com.example.simplecontact.database_model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+
+@Parcelize
 @Entity
 data class UserContact(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "USER_NAME")
-    val name: String,
+    var name: String,
     @ColumnInfo(name = "USER_EMAIL")
-    val email: String,
+    var email: String,
     @ColumnInfo(name = "USER_PHONE")
-    val phone: String
-)
+    var phone: String
+): Parcelable

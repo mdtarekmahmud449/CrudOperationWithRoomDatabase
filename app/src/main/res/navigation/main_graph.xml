@@ -16,10 +16,18 @@
         <action
             android:id="@+id/action_contactRecyclerFragment_to_addContactFragment2"
             app:destination="@id/addContactFragment" />
+        <action
+            android:id="@+id/action_contactRecyclerFragment_to_contactUpdateFragment"
+            app:destination="@id/contactUpdateFragment" />
     </fragment>
     <fragment
         android:id="@+id/addContactFragment"
         android:name="com.example.simplecontact.AddContactFragment"
         android:label="fragment_add_contact"
         tools:layout="@layout/fragment_add_contact" />
+    <fragment
+        android:id="@+id/contactUpdateFragment"
+        android:name="com.example.simplecontact.ContactUpdateFragment"
+        android:label="fragment_contact_update"
+        tools:layout="@layout/fragment_contact_update" />
 </navigation>

@@ -11,13 +11,13 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.room.Room
 import com.example.simplecontact.database.AppDatabase
+import com.example.simplecontact.database.Db
 import com.example.simplecontact.database_model.UserContact
 import com.example.simplecontact.databinding.FragmentAddContactBinding
 
 
 class AddContactFragment : Fragment() {
     private lateinit var binding: FragmentAddContactBinding
-    private lateinit var db: AppDatabase
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,12 +30,9 @@ class AddContactFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        db = Room.databaseBuilder(
-            requireContext(),
-            AppDatabase::class.java, "contact-database"
-        ).allowMainThreadQueries().build()
 
-        val contactDao = db.contactDao()
+
+        val contactDao = Db.instance(requireContext()).contactDao()
 
 
         binding.saveContactBtn.setOnClickListener {
@@ -50,11 +47,9 @@ class AddContactFragment : Fragment() {
             } else if (email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 contactDao.insertUserContact(userContact)
                 Toast.makeText(requireContext(), "Data saved to local database", Toast.LENGTH_SHORT).show()
-                binding.nameInput.text = null
-                binding.emailInput.text = null
-                binding.phoneInput.text = null
 
-                findNavController().navigate(R.id.contactRecyclerFragment)
+                findNavController().popBackStack()
+
             } else {
                 Toast.makeText(requireContext(), "Pleas put a valid email", Toast.LENGTH_SHORT).show()
             }
