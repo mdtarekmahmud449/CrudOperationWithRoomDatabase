@@ -1,4 +1,4 @@
-package com.example.simplecontact.database_model
+package com.example.simplecontact.data.loacal_database
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

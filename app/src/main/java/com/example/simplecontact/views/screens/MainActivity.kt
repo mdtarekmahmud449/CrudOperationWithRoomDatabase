@@ -1,4 +1,4 @@
-package com.example.simplecontact
+package com.example.simplecontact.views.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

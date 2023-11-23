@@ -1,6 +1,5 @@
-package com.example.simplecontact
+package com.example.simplecontact.views.screens
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -9,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.room.Room
-import com.example.simplecontact.database.AppDatabase
-import com.example.simplecontact.database.Db
-import com.example.simplecontact.database_model.UserContact
+import com.example.simplecontact.data.loacal_database.Db
+import com.example.simplecontact.data.loacal_database.UserContact
 import com.example.simplecontact.databinding.FragmentAddContactBinding
 
 

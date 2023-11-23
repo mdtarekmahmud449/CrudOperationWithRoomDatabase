@@ -1,13 +1,13 @@
-package com.example.simplecontact.adapter
+package com.example.simplecontact.views.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.simplecontact.database_model.UserContact
+import com.example.simplecontact.data.loacal_database.UserContact
 import com.example.simplecontact.databinding.SampleViewBinding
 
-class ContactAdapter(val userContactList: List<UserContact>, val listener: ContactAdapter.Listener) : RecyclerView.Adapter<ContactAdapter.MyViewHolder>() {
+class ContactAdapter(val userContactList: List<UserContact>, val listener: Listener) : RecyclerView.Adapter<ContactAdapter.MyViewHolder>() {
     interface Listener{
         fun onCreateDelete(userContact: UserContact)
         fun onUpdateContact(userContact: UserContact)

@@ -1,4 +1,4 @@
-package com.example.simplecontact
+package com.example.simplecontact.views.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,21 +8,30 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.simplecontact.adapter.ContactAdapter
-import com.example.simplecontact.dao.ContactDao
-import com.example.simplecontact.database.Db
-import com.example.simplecontact.database_model.UserContact
+import com.example.simplecontact.R
+import com.example.simplecontact.views.adapters.ContactAdapter
+import com.example.simplecontact.data.loacal_database.ContactDao
+import com.example.simplecontact.data.loacal_database.Db
+import com.example.simplecontact.data.loacal_database.UserContact
 import com.example.simplecontact.databinding.FragmentContactRecyclerBinding
+import com.example.simplecontact.di.ContactApplication
+import com.example.simplecontact.di.ObjectContainer
+import com.example.simplecontact.views.viewmodels.ContactViewModel
 
 class ContactRecyclerFragment : Fragment(), ContactAdapter.Listener {
     private lateinit var binding: FragmentContactRecyclerBinding
     private lateinit var contactAdapter: ContactAdapter
     private lateinit var contactDao: ContactDao
+    private lateinit var viewModel: ContactViewModel
+    private lateinit var objectContainer: ObjectContainer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentContactRecyclerBinding.inflate(inflater, container, false)
+
+        objectContainer = ContactApplication().appContainer(requireContext())
+        viewModel = objectContainer.contactViewModelFactory.create()
         return binding.root
     }
 
@@ -30,18 +39,20 @@ class ContactRecyclerFragment : Fragment(), ContactAdapter.Listener {
         super.onViewCreated(view, savedInstanceState)
 
 
-        contactDao = Db.instance(requireContext()).contactDao()
         setRecyclerView()
+        viewModel.getAllContact()
 
         binding.floatingActionBtn.setOnClickListener {
-            findNavController().navigate(R.id.addContactFragment)
+            findNavController().navigate(R.id.action_contactRecyclerFragment_to_addContactFragment)
         }
     }
 
     private fun setRecyclerView() {
-        contactAdapter = ContactAdapter(contactDao.getAllUserContacts(), this)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = contactAdapter
+        viewModel.responseAllContact.observe(viewLifecycleOwner) {list ->
+            contactAdapter = ContactAdapter(list, this)
+            binding.recyclerView.adapter = contactAdapter
+        }
     }
 
     override fun onCreateDelete(userContact: UserContact) {
@@ -52,7 +63,6 @@ class ContactRecyclerFragment : Fragment(), ContactAdapter.Listener {
             .setPositiveButton(
                 "Delete"
             ) { _, _ ->
-
 
                 Db.instance(requireContext()).contactDao().deleteUserContact(userContact)
                 setRecyclerView()

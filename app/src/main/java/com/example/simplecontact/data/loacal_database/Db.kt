@@ -1,4 +1,4 @@
-package com.example.simplecontact.database
+package com.example.simplecontact.data.loacal_database
 
 import android.content.Context
 import androidx.room.Room

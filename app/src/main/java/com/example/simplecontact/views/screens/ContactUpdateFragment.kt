@@ -1,4 +1,4 @@
-package com.example.simplecontact
+package com.example.simplecontact.views.screens
 
 import android.os.Build
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.simplecontact.database.Db
-import com.example.simplecontact.database_model.UserContact
+import com.example.simplecontact.data.loacal_database.Db
+import com.example.simplecontact.data.loacal_database.UserContact
 import com.example.simplecontact.databinding.FragmentContactUpdateBinding
 
 

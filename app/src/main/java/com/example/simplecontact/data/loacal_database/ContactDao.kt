@@ -1,16 +1,18 @@
-package com.example.simplecontact.dao
+package com.example.simplecontact.data.loacal_database
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.simplecontact.database_model.UserContact
 
 @Dao
 interface ContactDao {
     @Insert
     fun insertUserContact(userContact: UserContact)
+
+    @Insert
+    fun insertAllUser(vararg userContact: UserContact)
 
     @Update
     fun updateUserContact(userContact: UserContact)

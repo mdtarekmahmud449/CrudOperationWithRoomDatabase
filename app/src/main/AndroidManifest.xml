@@ -16,7 +16,7 @@
             android:name=".screen.ContactActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".views.screens.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
